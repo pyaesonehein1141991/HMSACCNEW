@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" template="/common/commonLayout.xhtml">
+	<ui:param name="header" value="Currency Rate" />
+	<ui:param name="headerRendered" value="true" />
+	<ui:define name="content">
+		<h:form id="dailyCurrencyRateForm">
+			<p:growl escape="false" globalOnly="true" life="5000" showDetail="true" />
+			<h:outputText value="#{label['MANAGE_DAILYCURRENCY_ADDNEW_LABEL']}" rendered="#{ManageNewDailyRateActionBean.createNew}" styleClass="title" />
+			<h:outputText value="#{label['MANAGE_DAILYCURRENCY_EDIT_LABEL']}" rendered="#{!ManageNewDailyRateActionBean.createNew}" styleClass="title" />
+			<p:panel>
+				<p:panelGrid id="paneldialogDept" columns="2" columnClasses="ui-g-12 ui-md-6 ui-lg-4, ui-g-12 ui-md-6 ui-lg-4, ui-g-12 ui-md-6 ui-lg-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1" styleClass="jsfgrid">
+						
+						<h:outputText value="" />
+						<p:message display="text" for="currencyCode" />
+						<h:outputText for="currencyCode" value="#{label['MANAGE_DAILYCURRENCY_CUR_LABEL']}" styleClass="input-label" />
+						<p:selectOneMenu id="currencyCode" converter="omnifaces.SelectItemsConverter" value="#{ManageNewDailyRateActionBean.rateInfo.currency}"
+							disabled="#{!ManageNewDailyRateActionBean.createNew}">
+							<f:selectItems value="#{ManageNewDailyRateActionBean.currencyList}" var="currency" itemLabel="#{currency.currencyCode}" itemValue="#{currency}" />
+						</p:selectOneMenu>
+						<h:outputText value="" />
+						<p:message display="text" for="exchangeDate" />
+						<h:outputText for="exchangeDate" value="#{label['MANAGE_DAILYCURRENCY_EXCHANGEDATE_LABEL']}" styleClass="input-label mandatory" escape="false" />
+						<p:calendar id="exchangeDate" value="#{ManageNewDailyRateActionBean.rateInfo.rDate}" required="true" showOn="button" pattern="#{ApplicationSetting.dateFormat}"
+							timeZone="#{ApplicationSetting.timeZone}" mask="true" maxdate="#{ManageNewDailyRateActionBean.maxDate}" />
+						<h:outputText value="" />
+						<p:message display="text" for="rateType" />
+						<h:outputText for="rateType" value="#{label['MANAGE_DAILYCURRENCY_RATETYPE_LABEL']}" styleClass="input-label" />
+						<p:selectOneMenu id="rateType" value="#{ManageNewDailyRateActionBean.rateInfo.rateType}" converter="omnifaces.SelectItemsConverter" disabled="#{!ManageNewDailyRateActionBean.createNew}">
+							<f:selectItems value="#{ManageNewDailyRateActionBean.rateType}" var="rateType" />
+						</p:selectOneMenu>
+						<h:outputText value="" />
+						<p:message display="text" for="exchangeRate"></p:message>
+						<h:outputText for="exchangeRate" value="#{label['MANAGE_DAILYCURRENCY_EXCHANGERATE_LABEL']}" styleClass="input-label mandatory" escape="false" />
+						<p:inputNumber id="exchangeRate" value="#{ManageNewDailyRateActionBean.rateInfo.exchangeRate}" required="true" decimalPlaces="4">
+						</p:inputNumber>
+					</p:panelGrid>
+				</p:panelGrid>
+			</p:panel>
+			<br />
+			<p:commandButton id="btnAdd" value="#{label['COMMON_ADDNEW_BTN']}" action="#{ManageNewDailyRateActionBean.addNewRateInfo}" rendered="#{ManageNewDailyRateActionBean.createNew}"
+				style="width:65px;" update="dailyCurrencyRateForm" oncomplete="PF('rateTable').clearFilters()" />
+			<p:commandButton id="cancleButton" immediate="true" process="@this" value="Cancel" action="dailyRate"
+					style="width:70px;" />
+			<br />
+			<br />
+			<p:separator style="height:3px;" />
+		</h:form>
+	</ui:define>
+</ui:composition>

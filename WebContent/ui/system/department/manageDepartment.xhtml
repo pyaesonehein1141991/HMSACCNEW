@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/common/commonLayout.xhtml">
+	<ui:param name="header" value="Department Management" />
+	<ui:param name="headerRendered" value="true" />
+	<ui:define name="content">
+		<h:form id="departmentTableForm">
+			<p:growl escape="false" globalOnly="true" life="5000" showDetail="true" />
+			<!-- Create New -->
+			<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:commandButton id="addBtn" value="#{label['COMMON_ADDNEW_LINK']}" action="#{ManageDepartmentActionBean.createNewDepartment}" icon="pi pi-plus" />
+			</p:panelGrid>
+			<!-- List Table -->
+			<p:dataTable var="department" value="#{ManageDepartmentActionBean.departmentList}" id="departmentTable" paginator="true" rows="10" style="width:100%" widgetVar="departmentTable"
+				paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" rowKey="#{department.id}" reflow="true" rowIndexVar="var">
+				<p:column headerText="No" width="3%">
+					<h:outputText value="#{var + 1}" />
+				</p:column>
+				<p:column filterBy="#{department.dCode}" filterMatchMode="contains" width="35%" headerText="#{label['MANAGE_PRODUCT_DCODE_LABEL']}">
+					<h:outputText value="#{department.dCode}" />
+				</p:column>
+				<p:column headerText="#{label['MANAGE_DEPARTMENT_DESCRIPTION_LABEL']}">
+					<h:outputText value="#{department.description}" />
+				</p:column>
+				<p:column style="width:4%;">
+					<p:commandButton styleClass="green-button" icon="fa fa-paint-brush" action="#{ManageDepartmentActionBean.prepareUpdateDepartment(department)}" process="@this" />
+				</p:column>
+				<p:column style="width:4%;">
+					<p:commandButton styleClass="red-button" icon="fa fa-times" action="#{ManageDepartmentActionBean.deleteDepartment(department)}" oncomplete="PF('departmentTable').filter();"
+						update=":departmentTableForm">
+						<p:confirm header="Confirmation" message="#{label['COMMON_MSG_DELETE_CONFIRM_LABEL']}" icon="fa fa-exclamation-triangle" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<!-- Confirmation Dialog -->
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+			<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+		</p:confirmDialog>
+	</ui:define>
+</ui:composition>

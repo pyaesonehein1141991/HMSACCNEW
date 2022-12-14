@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions" template="/common/commonLayout.xhtml">
+	<ui:param name="header" value="Currency Rate" />
+	<ui:param name="headerRendered" value="true" />
+	<ui:define name="content">
+		<h:form id="dailyCurrencyRateTableForm">
+			<p:growl escape="false" globalOnly="true" life="5000" showDetail="true" />
+			<!-- Create New -->
+			<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:commandButton id="addBtn" value="#{label['COMMON_ADDNEW_LINK']}" action="#{RateDailyCurActionBean.createNewRate}" icon="pi pi-plus" />
+			</p:panelGrid>
+			<!-- List Table -->
+			<p:dataTable id="rateTable" value="#{RateDailyCurActionBean.rateInfoList}" var="rate" paginator="true" rows="10" widgetVar="rateTable"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10, 15"
+				rowKey="index" paginatorPosition="bottom" emptyMessage="Nothing found with given criteria" filteredValue="#{RateDailyCurActionBean.filterList}" reflow="true" rowIndexVar="var">
+				<p:column headerText="No." width="2%">
+					<h:outputText value="#{var + 1}" />
+				</p:column>
+				<p:column headerText="#{label['MANAGE_DAILYCURRENCY_CUR_LABEL']}" filterMatchMode="exact" filterBy="#{rate.currency}">
+					<f:facet name="filter">
+						<p:selectOneMenu converter="omnifaces.SelectItemsIndexConverter" onchange="PF('rateTable').filter()">
+							<f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+							<f:selectItems value="#{RateDailyCurActionBean.currencyList}" itemValue="#{type}" itemLabel="#{type.currencyCode}" var="type" />
+						</p:selectOneMenu>
+					</f:facet>
+					<h:outputText value="#{rate.currency.currencyCode}" />
+				</p:column>
+				<p:column headerText="#{label['MANAGE_DAILYCURRENCY_EXCHANGEDATE_LABEL']}">
+					<h:outputText value="#{rate.rDate}">
+						<f:convertDateTime pattern="#{ApplicationSetting.dateFormat}" timeZone="#{ApplicationSetting.timeZone}" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_DAILYCURRENCY_RATETYPE_LABEL']}" filterBy="#{rate.rateType}" filterMatchMode="exact">
+					<f:facet name="filter">
+						<p:selectOneMenu converter="omnifaces.SelectItemsIndexConverter" onchange="PF('rateTable').filter()">
+							<f:selectItem itemLabel="All" itemValue="#{null}" noSelectionOption="true" />
+							<f:selectItems value="#{RateDailyCurActionBean.rateType}" itemValue="#{type}" itemLabel="#{type}" var="type" />
+						</p:selectOneMenu>
+					</f:facet>
+					<h:outputText value="#{rate.rateType}" />
+				</p:column>
+				<p:column headerText="#{label['MANAGE_DAILYCURRENCY_EXCHANGERATE_LABEL']}">
+					<h:outputText value="#{rate.exchangeRate}" style="float:right;">
+						<f:convertNumber pattern="#{ApplicationSetting.currencyFormat2}"></f:convertNumber>
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

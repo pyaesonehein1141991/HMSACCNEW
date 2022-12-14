@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="JPA" transaction-type="RESOURCE_LOCAL"> 
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>  
+    <class>org.hms.accounting.common.BasicEntity</class>
+    <class>org.hms.accounting.user.User</class>
+    <class>org.hms.accounting.common.ContactInfo</class>
+    <class>org.hms.accounting.role.Role</class>
+    <class>org.hms.accounting.system.webPage.WebPage</class> 
+    <class>org.hms.accounting.system.chartaccount.ChartOfAccount</class>
+    <class>org.hms.accounting.system.coasetup.COASetup</class>
+	<class>org.hms.accounting.system.chartaccount.CurrencyChartOfAccount</class>
+	<class>org.hms.accounting.system.chartaccount.CcoaHistory</class>
+	<class>org.hms.accounting.system.chartaccount.CcoaClone</class>
+	<class>org.hms.accounting.system.tlfhist.TLFCLONE</class>
+	<class>org.hms.accounting.system.branch.Branch</class>
+	<class>org.hms.accounting.system.currency.Currency</class>
+	<class>org.hms.accounting.system.rateinfo.RateInfo</class>
+	<class>org.hms.accounting.system.department.Department</class>
+	<class>org.hms.accounting.system.trantype.TranType</class>
+    <class>org.hms.accounting.system.allocatecode.AllocateCode</class>
+	<class>org.hms.accounting.system.tlf.TLF</class>
+	<class>org.hms.accounting.system.tlfhist.TLFHIST</class>
+	<class>org.hms.accounting.system.formatfile.FormatFile</class>
+	<class>org.hms.java.component.idgen.IDGen</class>
+	<class>org.hms.accounting.system.systempost.SystemPost</class>
+	<class>org.hms.accounting.system.setup.Setup</class>
+	<class>org.hms.accounting.system.setup.SetupHistory</class>		
+	<class>org.hms.accounting.system.tlff.VwCashbook</class>
+	<class>org.hms.accounting.system.view.vwccoa.VwCcoa</class>
+	<class>org.hms.accounting.system.view.vwtlf.VwTLF</class>
+	<class>org.hms.accounting.system.view.bankcash.VwBankCash</class>
+	<class>org.hms.accounting.system.view.vwtlf.VwTLFClone</class>
+	<class>com.hms.test</class>
+	<class>org.hms.accounting.system.chartaccount.MSrcRate</class>
+	<class>org.hms.accounting.system.chartaccount.BfSrcRate</class>
+	<class>org.hms.accounting.system.chartaccount.BfRate</class>
+    <class>org.hms.accounting.system.chartaccount.MrevRate</class>
+    <class>org.hms.accounting.system.chartaccount.LymSrcRate</class>
+    <class>org.hms.accounting.system.chartaccount.MonthlyRate</class>
+    
+    <!-- Exchange Config -->
+    <class>org.hms.accounting.system.gainloss.ExchangeConfig</class>
+    
+    <!-- Menu -->
+		<class>org.hms.accounting.menu.MainMenu</class>
+		<class>org.hms.accounting.menu.MainMenuValue</class>
+		<class>org.hms.accounting.menu.SubMenu</class>
+		<class>org.hms.accounting.menu.SubMenuValue</class>
+		<class>org.hms.accounting.menu.MenuItem</class>
+		<class>org.hms.accounting.menu.MenuItemValue</class>
+    
+	
+	 <!-- <class>org.hms.accounting.report.cleanCashReport.CleanCashView</class>
+	<class>org.hms.accounting.report.incomeandexpenditure.IncomeAndExpenditure</class>  -->
+    <shared-cache-mode>NONE</shared-cache-mode>  
+    <properties> 
+   		<property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=HMS;selectMethod=cursor" />
+    	<!-- <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost;databaseName=FNIGP-ACC-202220;selectMethod=cursor" /> -->
+		<property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>  
+		<property name="javax.persistence.jdbc.user" value="sa"/>  
+		<property name="javax.persistence.jdbc.password" value="sasa"/> 
+		
+		
+		<!--Performance Tuning-->
+		<property name="eclipselink.orm.throw.exceptions" value="true"/>
+		<property name="eclipselink.ddl-generation.index-foreign-keys" value="true"/>
+		<property name="eclipselink.jdbc.native-sql" value="true"/>
+		<property name="eclipselink.jdbc.batch-writing" value="Oracle-JDBC"/>
+		<property name="eclipselink.flush-clear.cache" value="Drop"/>
+		<property name="eclipselink.cache.query-results" value="true"/>
+		<property name="eclipselink.cache.size.default" value="5000"/>            
+		<property name="eclipselink.jdbc.cache-statements" value="true"/>
+		<property name="eclipselink.jdbc.cache-statements.size" value="100"/>
+    </properties>
+  </persistence-unit> 
+</persistence>

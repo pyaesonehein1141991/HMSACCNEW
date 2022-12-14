@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<id-config>
+	<!-- System -->
+	<class prefix="ISSYS001" name="org.hms.accounting.user.User" /> 
+	<class prefix="ISSYS002" name="org.hms.accounting.role.Role" /> 
+    <class prefix="ISSYS003" name="org.hms.accounting.system.webPage.WebPage" />
+    <class prefix="ISSYS004" name="org.hms.accounting.system.allocatecode.AllocateCode" />
+    <class prefix="ISSYS005" name="org.hms.accounting.system.branch.Branch" />
+    <class prefix="ISSYS006" name="org.hms.accounting.system.currency.Currency" />
+    <class prefix="ISSYS007" name="org.hms.accounting.system.department.Department" />
+    <class prefix="ISSYS008" name="org.hms.accounting.system.formatfile.FormatFile" />
+    <class prefix="ISSYS009" name="org.hms.accounting.system.rateinfo.RateInfo" />
+    <class prefix="ISSYS010" name="org.hms.accounting.system.tlf.TLF" />
+    <class prefix="ISSYS011" name="org.hms.accounting.system.tlfhist.TLFHIST" />
+    
+    <!-- Chart Of Account -->
+    <class prefix="ISCOA001" name="org.hms.accounting.system.chartaccount.ChartOfAccount" />
+    
+    <!-- Currency Chart Of Account -->
+    <class prefix="ISCCOA001" name="org.hms.accounting.system.chartaccount.CurrencyChartOfAccount" />
+    <class prefix="ISCCOA002" name="org.hms.accounting.system.chartaccount.CCOA_History" />
+    <class prefix="EXC001" name="org.hms.accounting.system.gainloss.ExchangeConfig" />
+    <class prefix="CUSID" name="org.hms.java.component.idgen.IDGen" />
+   
+</id-config>

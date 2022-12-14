@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/common/commonLayout.xhtml">
+	<ui:param name="header" value="Department Management" />
+	<ui:param name="headerRendered" value="true" />
+	<ui:define name="content">
+		<h:form id="departmentEntryForm">
+   			<p:growl escape="false" globalOnly="true" life="5000" showDetail="true"/>
+   			<h:outputText value="Department Management" rendered="#{ManageNewDepartmentActionBean.createNew}" styleClass="title"/>
+			<h:outputText value="Update Department" rendered="#{!ManageNewDepartmentActionBean.createNew}" styleClass="title"/>
+			<p:message display="text" for="panelDept" />
+			<p:panel>
+				<p:panelGrid id="panelDept" columns="2" columnClasses="ui-g-12 ui-md-6 ui-lg-4, ui-g-12 ui-md-6 ui-lg-4, ui-g-12 ui-md-6 ui-lg-4" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="1" styleClass="jsfgrid">
+						
+						<h:outputText value=""/>
+						<p:message display="text" for="dCode"/>
+						<h:outputText for="dCode" value="#{label['MANAGE_PRODUCT_DCODE_LABEL']}" escape="false" styleClass="input-label mandatory" />
+						<p:inputText value="#{ManageNewDepartmentActionBean.department.dCode}" id="dCode" required="true">
+							<f:validateLength maximum="50"/>
+						</p:inputText>
+						
+					</p:panelGrid>
+					<p:panelGrid columns="1" styleClass="jsfgrid">
+						
+						<h:outputText value=""/>
+						<p:message display="text" for="description"/>
+						<h:outputText for="description" value="#{label['MANAGE_PRODUCT_DESCRIPTION_LABEL']}" escape="false" styleClass="input-label mandatory" />
+						<p:inputTextarea value="#{ManageNewDepartmentActionBean.department.description}" required="true" id="description" rows="4">
+							<f:validateLength maximum="200"/>
+						</p:inputTextarea>
+						
+					</p:panelGrid>
+				</p:panelGrid>
+			</p:panel>
+			<br/>
+			<h:panelGrid columns="3" style="margin-top:-2px;">
+	   			<p:commandButton id="addBtn" value="#{label['COMMON_ADDNEW_BTN']}" action="#{ManageNewDepartmentActionBean.addNewDepartment}" rendered="#{ManageNewDepartmentActionBean.createNew}" 
+	   				oncomplete="PF('departmentTable').clearFilters();" style="width:65px;" />
+				<p:commandButton id="editBtn" value="#{label['COMMON_UPDATE_BTN']}" action="#{ManageNewDepartmentActionBean.updateDepartment}" rendered="#{!ManageNewDepartmentActionBean.createNew}" 
+					oncomplete="PF('departmentTable').filter();" update="@form" style="width:70px;" />
+				<p:commandButton id="cancleButton" immediate="true" process="@this" value="Cancel" action="departmentCodeEntry" 
+								update="@form" style="width:70px;margin-left:-3px;"/>
+			</h:panelGrid>
+			<br/>
+			<p:separator style="height:3px"/>
+   		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/common/commonLayout.xhtml">
+    <ui:param name="header" value="Currency Management"/>
+	<ui:param name="headerRendered" value="true"/>            
+    <ui:define name="content">
+   		<h:form id="currencyTableForm">
+   		
+   		<p:growl escape="false" globalOnly="true" life="5000" showDetail="true"/>
+   		<!-- Create New -->
+   			<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton id="addBtn" value="#{label['COMMON_ADDNEW_LINK']}" action="#{ManageCurrencyActionBean.createNewCurrency}" icon="pi pi-plus" />
+			</p:panelGrid>
+			
+		<!-- List Table -->
+			<p:dataTable var="currency" value="#{ManageCurrencyActionBean.currencyList}" id="currencyTable" paginator="true" rows="10" style="width:100%"
+			widgetVar="currencyTable" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15"  rowKey="index" reflow="true" rowIndexVar="var" paginatorPosition="bottom">
+				<p:column headerText="No." width="2%">
+					<h:outputText value="#{var + 1}"/>
+				</p:column>
+				<p:column filterBy="#{currency.currencyCode}" filterMatchMode="contains" headerText="#{label['MANAGE_CURRENCY_CURRENCYCODE_LABEL']}" width="10%">
+					<h:outputText value="#{currency.currencyCode}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_DESCRIPTION_LABEL']}">
+					<h:outputText value="#{currency.description}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_SYMBOL_LABEL']}">
+					<h:outputText value="#{currency.symbol}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_INWORDDESP1_LABEL']}">
+					<h:outputText value="#{currency.inwordDesp1}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_INWORDDESP2_LABEL']}">
+					<h:outputText value="#{currency.inwordDesp2}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_HOMEINWORDDESP1_LABEL']}">
+					<h:outputText value="#{currency.homeInwordDesp1}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_HOMEINWORDDESP2_LABEL']}">
+					<h:outputText value="#{currency.homeInwordDesp2}"/>
+				</p:column>
+				<p:column headerText="#{label['MANAGE_CURRENCY_HOMECURRENCY_LABEL']}">
+					<h:outputText value="#{currency.isHomeCur? 'Yes' : 'No' }"/>
+				</p:column>						
+				<p:column style="width:4%;">
+					 <p:commandButton styleClass="green-button" icon="fa fa-paint-brush" action="#{ManageCurrencyActionBean.prepareUpdateCurrency(currency)}" />
+				</p:column>
+				<p:column style="width:4%;">
+				    <p:commandButton styleClass="red-button" icon="fa fa-times" action="#{ManageCurrencyActionBean.deleteCurrency(currency)}" oncomplete="PF('currencyTable').filter();" update=":currencyTableForm">
+				    	<p:confirm header="Confirmation" message="#{label['COMMON_MSG_DELETE_CONFIRM_LABEL']}" icon="fa fa-exclamation-triangle" />
+				    </p:commandButton>
+				</p:column>
+				
+			</p:dataTable>
+   		</h:form>
+   		
+		<!-- Confirmation Dialog -->
+		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		 	<p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+			<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+		</p:confirmDialog>
+		
+   </ui:define>                       
+</ui:composition>
